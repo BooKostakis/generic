@@ -1,36 +1,48 @@
-public class Box<K, V, F> {
-    private K key;
-    private V value;
-    private F flo;
+import java.io.Serializable;
+import java.util.List;
 
-    public K getKey() {
-        return key;
+public class Box<T extends Number & Comparable<T> & Serializable>{
+    private T[] array;
+
+    public Box(T... array) {
+        this.array = array;
     }
 
-    public V getValue() {
-        return value;
+    public T[] getArray() {
+        return array;
     }
 
-    public void setKey(K key) {
-        this.key = key;
+    public void setArray(T[] array) {
+        this.array = array;
     }
 
-    public void setValue(V value) {
-        this.value = value;
+    public double avg() {
+        double result = 0;
+        for (T element : array) {
+            result += ((Number) element).doubleValue();
+        }
+        return result / array.length;
     }
 
-    public F getFlo() {
-        return flo;
+    public int compare(Box<?> another) {
+        if (avg() > another.avg()) {
+            return 1;
+        } else if (avg() == another.avg()) {
+            return 0;
+        } else {
+            return -1;
+        }
+
+
+
+
+    }
+//
+//    public static void method(List<Number> numbers){
+//
+//    }
+    public static void method(List<? extends Number> numbers) {
+
     }
 
-    public void setFlo(F flo) {
-        this.flo = flo;
-    }
-
-
-    public Box(K key, V value, F flo) {
-        this.key = key;
-        this.value = value;
-        this.flo = flo;
-    }
 }
